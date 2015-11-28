@@ -1194,7 +1194,7 @@ function sp_ProfileShowInstagram($args='', $label='') {
 				  );
 
 	$a = wp_parse_args($args, $defs);
-	$a = apply_filters('sph_ProfileShowTwitter_args', $a);
+	$a = apply_filters('sph_ProfileShowInstagram_args', $a);
 	extract($a, EXTR_SKIP);
 
 	# sanitize before use
@@ -1207,17 +1207,19 @@ function sp_ProfileShowInstagram($args='', $label='') {
 	$echo			= (int) $echo;
 	$get			= (int) $get;
 
-	if ($get) return $spProfileUser->instagram;
+	$instagram = get_the_author_meta( 'instagram', $spProfileUser->ID );
+
+	if ($get) return $instagram;
 
 	# output first name
-	if (!empty($spProfileUser->instagram) || $showEmpty) {
+	if (!empty($instagram) || $showEmpty) {
 		$out = '';
 		$out.= "<div class='$leftClass'>";
 		$out.= "<p class='$tagClass'>$label:</p>";
 		$out.= '</div>';
 		$out.= "<div class='$middleClass'></div>";
 		$out.= "<div class='$rightClass'>";
-		$twitter = (empty($spProfileUser->instagram)) ? '&nbsp;' : btc_social_links( $spProfileUser->instagram, 'instagram' );
+		$instagram = (empty($instagram)) ? '&nbsp;' : btc_social_links( $instagram, 'instagram' );
 
 
 		$out.= "<p class='$tagClass'>$instagram</p>";
