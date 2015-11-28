@@ -1173,6 +1173,68 @@ function sp_ProfileShowTwitter($args='', $label='') {
 
 # --------------------------------------------------------------------------------------
 #
+#	sp_ProfileShowInstagram()
+#	Display a users location
+#	Scope:	site
+#	Version: 5.0
+#
+# --------------------------------------------------------------------------------------
+function sp_ProfileShowInstagram($args='', $label='') {
+	global $spProfileUser;
+
+	if (!sp_get_auth('view_profiles')) return;
+
+	$defs = array('tagClass'	=> 'spProfileShowTwitter',
+				  'leftClass'	=> 'spColumnSection spProfileLeftCol',
+				  'middleClass'	=> 'spColumnSection spProfileSpacerCol',
+				  'rightClass'	=> 'spColumnSection spProfileRightCol',
+				  'showEmpty' 	=> 0,
+				  'echo'		=> 1,
+				  'get'			=> 0,
+				  );
+
+	$a = wp_parse_args($args, $defs);
+	$a = apply_filters('sph_ProfileShowTwitter_args', $a);
+	extract($a, EXTR_SKIP);
+
+	# sanitize before use
+	$tagClass		= esc_attr($tagClass);
+	$leftClass		= esc_attr($leftClass);
+	$middleClass	= esc_attr($middleClass);
+	$rightClass		= esc_attr($rightClass);
+	$showEmpty		= (int) $showEmpty;
+	$label			= sp_filter_title_display($label);
+	$echo			= (int) $echo;
+	$get			= (int) $get;
+
+	if ($get) return $spProfileUser->instagram;
+
+	# output first name
+	if (!empty($spProfileUser->instagram) || $showEmpty) {
+		$out = '';
+		$out.= "<div class='$leftClass'>";
+		$out.= "<p class='$tagClass'>$label:</p>";
+		$out.= '</div>';
+		$out.= "<div class='$middleClass'></div>";
+		$out.= "<div class='$rightClass'>";
+		$twitter = (empty($spProfileUser->instagram)) ? '&nbsp;' : btc_social_links( $spProfileUser->instagram, 'instagram' );
+
+
+		$out.= "<p class='$tagClass'>$instagram</p>";
+		$out.= "</div>\n";
+
+		$out = apply_filters('sp_ProfileShowInstagram', $out, $spProfileUser, $a);
+
+		if ($echo) {
+			echo $out;
+		} else {
+			return $out;
+		}
+	}
+}
+
+# --------------------------------------------------------------------------------------
+#
 #	sp_ProfileShowLinkedIn()
 #	Display a users location
 #	Scope:	site
