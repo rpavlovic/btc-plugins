@@ -1155,7 +1155,7 @@ function sp_ProfileShowTwitter($args='', $label='') {
 		$out.= '</div>';
 		$out.= "<div class='$middleClass'></div>";
 		$out.= "<div class='$rightClass'>";
-		$twitter = (empty($spProfileUser->twitter)) ? '&nbsp;' : btc_social_links( $spProfileUser->twitter, 'twitter' );
+		$twitter = (empty($spProfileUser->twitter)) ? '&nbsp;' : $spProfileUser->twitter;
 
 
 		$out.= "<p class='$tagClass'>$twitter</p>";
