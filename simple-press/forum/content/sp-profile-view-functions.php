@@ -1095,7 +1095,7 @@ function sp_ProfileShowFacebook($args='', $label='') {
 		$out.= '</div>';
 		$out.= "<div class='$middleClass'></div>";
 		$out.= "<div class='$rightClass'>";
-		$facebook = (empty($spProfileUser->facebook)) ? '&nbsp;' : $spProfileUser->facebook;
+		$facebook = (empty($spProfileUser->facebook)) ? '&nbsp;' : btc_social_links( $spProfileUser->facebook );
 		$out.= "<p class='$tagClass'>$facebook</p>";
 		$out.= "</div>\n";
 
@@ -1155,7 +1155,9 @@ function sp_ProfileShowTwitter($args='', $label='') {
 		$out.= '</div>';
 		$out.= "<div class='$middleClass'></div>";
 		$out.= "<div class='$rightClass'>";
-		$twitter = (empty($spProfileUser->twitter)) ? '&nbsp;' : $spProfileUser->twitter;
+		$twitter = (empty($spProfileUser->twitter)) ? '&nbsp;' : btc_social_links( $spProfileUser->twitter, 'twitter' );
+
+
 		$out.= "<p class='$tagClass'>$twitter</p>";
 		$out.= "</div>\n";
 
