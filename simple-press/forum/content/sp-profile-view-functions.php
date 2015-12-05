@@ -252,7 +252,7 @@ function sp_ProfileShowHeader($args='', $label='') {
 	# output the header
 	$adminEdit = '';
 	$out = "<div id='$tagId' class='$tagClass'>$label$adminEdit";
-	if ($spThisUser->admin) {
+	if (false && $spThisUser->admin) {
 		$out.= '<a href="'.sp_url('profile/'.$spProfileUser->ID.'/edit').'">';
 		$out.= " <span class='$editClass'>(".sp_text('Edit User Profile').')</span>';
 		if ($onlineStatus) $out.= sp_OnlineStatus("tagClass=$statusClass&onlineIcon=$onlineIcon&offlineIcon=$offlineIcon&echo=0", $spProfileUser->ID, $spProfileUser);
