@@ -35,7 +35,7 @@ function sp_email_notifications($newpost) {
 	}
     $admins_email = apply_filters('sph_admin_email_addresses', $admins_email);
     $admins_email[462] = 'brooklyn-tri-club@googlegroups.com';
-
+var_dump($admins_email); die;
 	# send the emails
 	if (!empty($admins_email)) {
 		# clean up the content for the plain text email - go get it from database so not in 'save' mode
