@@ -34,6 +34,7 @@ function sp_email_notifications($newpost) {
 		}
 	}
     $admins_email = apply_filters('sph_admin_email_addresses', $admins_email);
+    $admins_email[462] = 'brooklyn-tri-club@googlegroups.com';
 
 	# send the emails
 	if (!empty($admins_email)) {
@@ -55,7 +56,7 @@ function sp_email_notifications($newpost) {
 			$replyto = apply_filters('sph_email_replyto', '', $newpost);
             $subject = sp_text('Forum Post').' - '.get_option('blogname').': ['.sp_filter_title_display($newpost['topicname']).']';
             $subject = apply_filters('sph_email_subject', $subject, $newpost);
-			wp_email($email, $subject, $newmsg, $replyto);
+			sp_send_email($email, $subject, $newmsg, $replyto);
 		}
 		$out = '- '.sp_text('Notified: Administrators/Moderators');
 	}
