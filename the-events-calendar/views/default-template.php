@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-auth_user( '/members-only' ); 
+auth_user( '/members-only' );
 
 get_header(); ?>
 	<div id="tribe-events-pg-template">
