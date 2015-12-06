@@ -971,7 +971,7 @@ function sp_send_email($mailto, $mailsubject, $mailtext, $replyto='') {
 	$email_sent = array();
 
 	do_action('sph_email_send_before');
-die('here');
+
 	$email = wp_mail($mailto, $mailsubject, $mailtext);
 
 	do_action('sph_email_send_after');
