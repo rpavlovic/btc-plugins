@@ -1738,6 +1738,10 @@ function sp_ProfileShowEmail($args='', $label='') {
 	$echo			= (int) $echo;
 	$get			= (int) $get;
 
+	if ( !$spProfileUser->display_email ) {
+		return '';
+	}
+
 	if ($get) return $spProfileUser->user_email;
 
 	if (sp_get_auth('view_email') || !$adminOnly) {
