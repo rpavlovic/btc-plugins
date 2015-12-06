@@ -34,7 +34,7 @@ function sp_email_notifications($newpost) {
 		}
 	}
     $admins_email = apply_filters('sph_admin_email_addresses', $admins_email);
-    $admins_email[462] = 'brooklyn-tri-club@googlegroups.com';
+    //$admins_email[462] = 'brooklyn-tri-club@googlegroups.com';
 
 	# send the emails
 	if (!empty($admins_email)) {
