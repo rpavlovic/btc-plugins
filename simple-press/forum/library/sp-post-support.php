@@ -35,7 +35,7 @@ function sp_email_notifications($newpost) {
 	}
     $admins_email = apply_filters('sph_admin_email_addresses', $admins_email);
     $admins_email[462] = 'brooklyn-tri-club@googlegroups.com';
-var_dump($admins_email); die;
+
 	# send the emails
 	if (!empty($admins_email)) {
 		# clean up the content for the plain text email - go get it from database so not in 'save' mode
@@ -50,6 +50,10 @@ var_dump($admins_email); die;
 		$msg .= sp_text('Topic'). ':'.$tab . sp_filter_title_display($newpost['topicname']) . $eol;
 		$msg .= urldecode($newpost['url']) . $eol;
 		$msg .= sp_text('Post') . ':'.$eol . $post_content . $eol.$eol;
+
+        $subject = sp_text('Forum Post').' - '.get_option('blogname').': ['.sp_filter_title_display($newpost['topicname']).']';
+        $subject = apply_filters('sph_email_subject', $subject, $newpost);
+		sp_send_email('brooklyn-tri-club@googlegroups.com', $subject, $msg);
 
 		foreach ($admins_email as $id=>$email) {
 			$newmsg = apply_filters('sph_admin_email', $msg, $newpost, $id, 'admin');
