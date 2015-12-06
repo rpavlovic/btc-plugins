@@ -1738,7 +1738,8 @@ function sp_ProfileShowEmail($args='', $label='') {
 	$echo			= (int) $echo;
 	$get			= (int) $get;
 
-	if ( !$spProfileUser->display_email ) {
+	$display_email = get_the_author_meta( 'display_email', $spProfileUser->ID );
+	if ( !$display_email ) {
 		return '';
 	}
 
