@@ -21,7 +21,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * @since 6.3.2
 	 * @const string
 	 */
-	const VERSION = '6.4.1';
+	const version = '6.4-rc1';
 
 	/**
 	 * Holds options key
@@ -152,7 +152,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 		add_filter( 'wp_list_pages_excludes', array( &$this, 'wp_list_pages_excludes' )        );
 		add_filter( 'page_link',              array( &$this, 'page_link'              ), 10, 2 );
 
-		add_action( 'tml_new_user_registered',   'wp_new_user_notification', 10, 3 );
+		add_action( 'tml_new_user_registered',   'wp_new_user_notification', 10, 2 );
 		add_action( 'tml_user_password_changed', 'wp_password_change_notification' );
 
 		add_shortcode( 'theme-my-login', array( &$this, 'shortcode' ) );
@@ -778,8 +778,12 @@ if(typeof wpOnload=='function')wpOnload()
 		// User  is logged in
 		if ( is_user_logged_in() ) {
 
-			// Hide login, register and lost password
-			if ( self::is_tml_page( array( 'login', 'register', 'lostpassword' ), $menu_item->object_id ) ) {
+			// Change Login to Logout
+			if ( self::is_tml_page( 'login', $menu_item->object_id ) ) {
+				$menu_item->_invalid = true;
+
+			// Hide Register
+			} elseif ( self::is_tml_page( 'register', $menu_item->object_id ) ) {
 				$menu_item->_invalid = true;
 			}
 
@@ -895,7 +899,7 @@ if(typeof wpOnload=='function')wpOnload()
 	 *
 	 * @since 6.3
 	 *
-	 * @param array|string $action An action or array of actions to check
+	 * @param string $action The action to check
 	 * @param int|object Post ID or object
 	 * @return bool True if $action is for $page, false otherwise
 	 */
@@ -909,10 +913,7 @@ if(typeof wpOnload=='function')wpOnload()
 		if ( ! $page_action = self::get_page_action( $page->ID ) )
 			return false;
 
-		if ( empty( $action ) )
-			return true;
-
-		if ( in_array( $page_action, (array) $action ) )
+		if ( empty( $action ) || $action == $page_action )
 			return true;
 
 		return false;
@@ -1233,8 +1234,6 @@ if(typeof wpOnload=='function')wpOnload()
 	 * @return int|WP_Error Either user's ID or error on failure.
 	 */
 	public static function register_new_user( $user_login, $user_email ) {
-		global $wp_version;
-
 		$errors = new WP_Error();
 
 		$sanitized_user_login = sanitize_user( $user_login );
@@ -1276,7 +1275,7 @@ if(typeof wpOnload=='function')wpOnload()
 
 		update_user_option( $user_id, 'default_password_nag', true, true ); //Set up the Password change nag.
 
-		do_action( 'tml_new_user_registered', $user_id, null, 'both' );
+		do_action( 'tml_new_user_registered', $user_id, 'both' );
 
 		return $user_id;
 	}

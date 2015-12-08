@@ -73,13 +73,9 @@ abstract class Theme_My_Login_Abstract {
 	 * @param string $class Class to instantiate
 	 * @return object Instance of $class
 	 */
-	public static function get_object( $class = null ) {
-		if ( ! class_exists( $class ) )
-			return null;
-
+	public static function get_object( $class ) {
 		if ( ! isset( self::$objects[$class] ) )
 			self::$objects[$class] = new $class;
-
 		return self::$objects[$class];
 	}
 
