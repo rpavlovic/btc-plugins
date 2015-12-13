@@ -21,7 +21,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * @since 6.3.2
 	 * @const string
 	 */
-	const VERSION = '6.4.2';
+	const VERSION = '6.4.2 (do not update)';
 
 	/**
 	 * Holds options key
@@ -1159,12 +1159,17 @@ if(typeof wpOnload=='function')wpOnload()
 			return $key;
 		}
 
+		$site_return_url = network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' );
+		if ( strstr( $site_return_url, 'http' ) == false && strpos( $site_return_url, '/' ) == 1 ) {
+			$site_return_url = WP_SITEURL . $site_return_url;
+		}
+
 		$message = __( 'Someone requested that the password be reset for the following account:', 'theme-my-login' ) . "\r\n\r\n";
 		$message .= network_home_url( '/' ) . "\r\n\r\n";
 		$message .= sprintf( __( 'Username: %s', 'theme-my-login' ), $user_login ) . "\r\n\r\n";
 		$message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'theme-my-login' ) . "\r\n\r\n";
 		$message .= __( 'To reset your password, visit the following address:', 'theme-my-login' ) . "\r\n\r\n";
-		$message .= '<' . network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' ) . ">\r\n";
+		$message .= '<' . $site_return_url . ">\r\n";
 
 		if ( is_multisite() ) {
 			$blogname = $GLOBALS['current_site']->site_name;
