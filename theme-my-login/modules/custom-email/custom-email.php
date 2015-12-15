@@ -292,9 +292,11 @@ class Theme_My_Login_Custom_Email extends Theme_My_Login_Abstract {
 	public function retrieve_pass_message_filter( $message, $key, $user_login, $user_data ) {
 		$_message = $this->get_option( array( 'retrieve_pass', 'message' ) );
 		if ( ! empty( $_message ) ) {
+
+			// RP: HACK!
 			$message = Theme_My_Login_Common::replace_vars( $_message, $user_data->ID, array(
-				'%loginurl%' => site_url( 'wp-login.php', 'login' ),
-				'%reseturl%' => site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' )
+				'%loginurl%' => WP_SITEURL . site_url( 'wp-login.php', 'login' ),
+				'%reseturl%' => WP_SITEURL . site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' )
 			) );
 		}
 		return $message;
