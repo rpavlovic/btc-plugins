@@ -1164,7 +1164,6 @@ if(typeof wpOnload=='function')wpOnload()
 		if ( strstr( $site_return_url, 'http' ) == false && strpos( $site_return_url, '/' ) == 1 ) {
 			$site_return_url = WP_SITEURL . $site_return_url;
 		}
-		die($site_return_url);
 
 		$message = __( 'Someone requested that the password be reset for the following account:', 'theme-my-login' ) . "\r\n\r\n";
 		$message .= network_home_url( '/' ) . "\r\n\r\n";
