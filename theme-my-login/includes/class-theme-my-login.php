@@ -1162,7 +1162,7 @@ if(typeof wpOnload=='function')wpOnload()
 		// RP: HACK!
 		$site_return_url = network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' );
 		if ( !strstr( $site_return_url, 'http' ) || strpos( $site_return_url, '/' ) == 1 ) {
-			$site_return_url = WP_SITEURL . $site_return_url	
+			$site_return_url = WP_SITEURL . $site_return_url
 		}
 
 		$message = __( 'Someone requested that the password be reset for the following account:', 'theme-my-login' ) . "\r\n\r\n";
