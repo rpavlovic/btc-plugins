@@ -21,7 +21,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * @since 6.3.2
 	 * @const string
 	 */
-	const VERSION = '6.4.2 (do not update)';
+	const VERSION = '6.4.3';
 
 	/**
 	 * Holds options key
@@ -1099,20 +1099,17 @@ if(typeof wpOnload=='function')wpOnload()
 	private static function load_textdomain() {
 
 		// Traditional WordPress plugin locale filter
-		$locale = apply_filters( 'plugin_locale',  get_locale(), 'theme-my-login' );
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'theme-my-login' );
 		$mofile = sprintf( 'theme-my-login-%s.mo', $locale );
 
 		// Look in global /wp-content/languages/theme-my-login folder
-		if ( file_exists( WP_LANG_DIR . '/theme-my-login/' . $mofile ) ) {
-			return load_textdomain( 'theme-my-login', WP_LANG_DIR . '/theme-my-login/' . $mofile );
+		load_textdomain( 'theme-my-login', WP_LANG_DIR . '/theme-my-login/' . $mofile );
 
-		// Look in local /wp-content/plugins/theme-my-login/language folder
-		} elseif ( file_exists( WP_PLUGIN_DIR . '/theme-my-login/language/' . $mofile ) ) {
-			return load_textdomain( 'theme-my-login', WP_PLUGIN_DIR . '/theme-my-login/language/' . $mofile );
-		}
+		// Look in local /wp-content/plugins/theme-my-login/languages folder
+		load_textdomain( 'theme-my-login', WP_PLUGIN_DIR . '/theme-my-login/languages/' . $mofile );
 
-		// Nothing found
-		return false;
+		// Look in global /wp-content/languages/plugins folder
+		load_plugin_textdomain( 'theme-my-login' );
 	}
 
 	/**
@@ -1159,18 +1156,12 @@ if(typeof wpOnload=='function')wpOnload()
 			return $key;
 		}
 
-		// RP: HACK!
-		$site_return_url = network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' );
-		if ( !strstr( $site_return_url, 'http' ) || strpos( $site_return_url, '/' ) == 1 ) {
-			$site_return_url = WP_SITEURL . $site_return_url
-		}
-
 		$message = __( 'Someone requested that the password be reset for the following account:', 'theme-my-login' ) . "\r\n\r\n";
 		$message .= network_home_url( '/' ) . "\r\n\r\n";
 		$message .= sprintf( __( 'Username: %s', 'theme-my-login' ), $user_login ) . "\r\n\r\n";
 		$message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'theme-my-login' ) . "\r\n\r\n";
 		$message .= __( 'To reset your password, visit the following address:', 'theme-my-login' ) . "\r\n\r\n";
-		$message .= '<' . $site_return_url . ">\r\n";
+		$message .= '<' . network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' ) . ">\r\n";
 
 		if ( is_multisite() ) {
 			$blogname = $GLOBALS['current_site']->site_name;
