@@ -1,0 +1,9 @@
+Simple:Press Theme Title: CSS-Only
+Version: 1.2.16
+Theme URI: http://simple-press.com
+Description: A variant of the default theme showcasing standard CSS only - for those who are unable to use our php overlay styled themes
+Author: Andy Staines, Steve Klasen and Brandon C
+Author URI: http://simple-press.com/custom-simplepress-themes-for-every-need/
+Stylesheet: css-only.css
+Screenshot: spTheme.jpg
+Simple:Press Versions: 5.5.1 and above
