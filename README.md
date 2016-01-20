@@ -6,3 +6,4 @@
 * Always fetch/rebase before pushing: `git fetch upstream master && git rebase -p upstream/master`
 * Push your commits to your fork: `git push origin master`
 * Submit pull request
+* Merged pull requests will auto-deploy to dev.brooklyntri.org
