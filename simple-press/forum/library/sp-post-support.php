@@ -53,14 +53,23 @@ function sp_email_notifications($newpost) {
 
         $subject = sp_text('Forum Post').' - '.get_option('blogname').': ['.sp_filter_title_display($newpost['topicname']).']';
         $subject = apply_filters('sph_email_subject', $subject, $newpost);
-		sp_send_email('brooklyn-tri-club@googlegroups.com', $subject, $msg);
+		$email_sent = sp_send_email('brooklyn-tri-club@googlegroups.com', $subject, $msg);
+
+		if (isset($email_sent[0]) && $email_sent[0] == false) {
+			mail('brooklyn-tri-club@googlegroups.com', $subject, $msg);
+		}
 
 		foreach ($admins_email as $id=>$email) {
 			$newmsg = apply_filters('sph_admin_email', $msg, $newpost, $id, 'admin');
 			$replyto = apply_filters('sph_email_replyto', '', $newpost);
             $subject = sp_text('Forum Post').' - '.get_option('blogname').': ['.sp_filter_title_display($newpost['topicname']).']';
             $subject = apply_filters('sph_email_subject', $subject, $newpost);
-			sp_send_email($email, $subject, $newmsg, $replyto);
+			$admin_sent = sp_send_email($email, $subject, $newmsg, $replyto);
+
+			if (isset($admin_sent[0]) && $admin_sent[0] == false) {
+				mail($email, $subject, $msg, $newmsg, $replyto);
+			}
+
 		}
 		$out = '- '.sp_text('Notified: Administrators/Moderators');
 	}
