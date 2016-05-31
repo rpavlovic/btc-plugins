@@ -53,7 +53,7 @@ function sp_email_notifications($newpost) {
 
         $subject = sp_text('Forum Post').' - '.get_option('blogname').': ['.sp_filter_title_display($newpost['topicname']).']';
         $subject = apply_filters('sph_email_subject', $subject, $newpost);
-		sp_send_email('brooklyn-tri-club@googlegroups.com', $subject, $msg);
+		sp_send_email('brooklyntriclub@gmail.com', $subject, $msg);
 
 		foreach ($admins_email as $id=>$email) {
 			$newmsg = apply_filters('sph_admin_email', $msg, $newpost, $id, 'admin');
