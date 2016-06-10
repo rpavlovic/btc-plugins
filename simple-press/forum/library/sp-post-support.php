@@ -56,12 +56,12 @@ function sp_email_notifications($newpost) {
 		$email_sent = sp_send_email('brooklyn-tri-club@googlegroups.com', $subject, $msg);
 
 		if (isset($email_sent[0]) && $email_sent[0] == false) {
-			error_log("sp_send_email did not work, attempting php mail()", 3, "simple-press.log");
+			error_log("sp_send_email did not work, attempting php mail()", 3, "/home1/brookmq9/simple-press.log");
 			if(mail('brooklyn-tri-club@googlegroups.com', $subject, $msg)) {
-				error_log("php mail() worked after sp_send_email failed", 3, "simple-press.log");
+				error_log("php mail() worked after sp_send_email failed", 3, "/home1/brookmq9/simple-press.log");
 			}
 			else {
-				error_log("php mail() did not work after sp_send_email failed", 3, "simple-press.log");
+				error_log("php mail() did not work after sp_send_email failed", 3, "/home1/brookmq9/simple-press.log");
 			}
 		}
 
@@ -73,12 +73,12 @@ function sp_email_notifications($newpost) {
 			$admin_sent = sp_send_email($email, $subject, $newmsg, $replyto);
 
 			if (isset($admin_sent[0]) && $admin_sent[0] == false) {
-				error_log("admin: sp_send_email did not work, attempting php mail()", 3, "simple-press.log");
+				error_log("admin: sp_send_email did not work, attempting php mail()", 3, "/home1/brookmq9/simple-press.log");
 				if(mail($email, $subject, $msg, $newmsg, $replyto)) {
-					error_log("admin: php mail() worked after sp_send_email failed", 3, "simple-press.log");
+					error_log("admin: php mail() worked after sp_send_email failed", 3, "/home1/brookmq9/simple-press.log");
 				}
 				else {
-					error_log("admin: php mail() did not work after sp_send_email failed", 3, "simple-press.log");
+					error_log("admin: php mail() did not work after sp_send_email failed", 3, "/home1/brookmq9/simple-press.log");
 				}
 			}
 		}
