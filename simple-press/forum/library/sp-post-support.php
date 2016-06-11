@@ -64,6 +64,9 @@ function sp_email_notifications($newpost) {
 				error_log("php mail() did not work after sp_send_email failed", 3, "/home1/brookmq9/simple-press.log");
 			}
 		}
+		else {
+			error_log("sp_send_email worked just fine", 3, "/home1/brookmq9/simple-press.log");
+		}
 
 		foreach ($admins_email as $id=>$email) {
 			$newmsg = apply_filters('sph_admin_email', $msg, $newpost, $id, 'admin');
@@ -80,6 +83,9 @@ function sp_email_notifications($newpost) {
 				else {
 					error_log("admin: php mail() did not work after sp_send_email failed", 3, "/home1/brookmq9/simple-press.log");
 				}
+			}
+			else {
+				error_log("sp_send_email worked just fine", 3, "/home1/brookmq9/simple-press.log");
 			}
 		}
 		$out = '- '.sp_text('Notified: Administrators/Moderators');
