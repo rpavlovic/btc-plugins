@@ -98,7 +98,7 @@ if (!class_exists('WishListMember')) {
 
 			// constant
 			define('WLMDEFAULTEMAILPERHOUR', '100');
-			define('WLMMEMORYALLOCATION', '128M');
+			define('WLMMEMORYALLOCATION', '512M');
 			define('WLMUNSUBKEY', 'ffa4017f6494a6637ca2636031d29eb7');
 			define('WLMREGCOOKIESECRET', 'z4tyh(*&^%tghjgyu#$RFGYUnbh9654rtyhg89ingt54');
 			//make sure the value is set. if not, direct level reg won't work
@@ -2929,7 +2929,7 @@ STRING;
 		function SendQueuedMail($limit = null) {
 			global $wpdb;
 			$mlimit = $this->GetOption('email_memory_allocation');
-			$mlimit = ($mlimit == "" ? "128M" : $mlimit);
+			$mlimit = ($mlimit == "" ? "512M" : $mlimit);
 			ini_set('memory_limit', $mlimit); // request for more memory
 			set_time_limit(3600); // 1 hour max execution because this script will be called again by wp-cron in an hour
 			// is $limit specified? if so, use it. if not, read from email_per_hour setting
