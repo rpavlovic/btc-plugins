@@ -2310,7 +2310,7 @@ if (!class_exists('WishListMemberPluginMethods')) {
 		}
 
 		function GetMatchingLevels($thefile, $mlevel) {
-			ini_set('memory_limit', '256M');
+			ini_set('memory_limit', '512M');
 			$auto_detect_line_endings = ini_get('auto_detect_line_endings');
 			ini_set('auto_detect_line_endings', 1);
 			set_time_limit(3600);

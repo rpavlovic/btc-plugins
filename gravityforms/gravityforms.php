@@ -2290,7 +2290,7 @@ class GFForms {
 			$captcha = $field->get_captcha();
 		}
 
-		@ini_set( 'memory_limit', '256M' );
+		@ini_set( 'memory_limit', '512M' );
 		$image = imagecreatefrompng( $captcha['path'] );
 
 		include_once( ABSPATH . 'wp-admin/includes/image-edit.php' );
